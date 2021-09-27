@@ -1,10 +1,10 @@
 {
   "name": "sq-lite-crud-with-angular-electron",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "main": "main.js",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/RajeshPrabhulalPrajapati/EmployeeManagementElectronApp.git"
+    "type": "git",
+    "url": "https://github.com/RajeshPrabhulalPrajapati/EmployeeManagementElectronApp.git"
   },
   "scripts": {
     "ng": "ng",
@@ -13,7 +13,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "electron": "electron .",
-    "electron-build": "ng build --prod  && npm run electron .",
+    "electron-builder": "ng build --prod  && npm run electron .",
     "builder": "electron-builder build  --win --publish never",
     "deploy": "electron-builder build  --win --publish always"
   },
@@ -52,6 +52,7 @@
     "@types/node": "^12.11.1",
     "@types/uuid": "^8.3.1",
     "electron": "^14.0.1",
+    "electron-builder": "^22.11.7",
     "electron-packager": "^15.4.0",
     "jasmine-core": "~3.8.0",
     "karma": "~6.3.0",

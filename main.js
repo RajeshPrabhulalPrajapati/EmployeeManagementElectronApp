@@ -40,6 +40,7 @@ console.log(iconPath);
 let db;
 
 async function  createWindow() {  
+  
     console.log("before connection");
         // const connection = await createConnection({
         //   type: 'sqlite',
@@ -70,6 +71,10 @@ async function  createWindow() {
             webSecurity: false
         }
     })
+
+    mainWindow.once('ready-to-show', () => {
+      autoUpdater.checkForUpdatesAndNotify();
+    });
 
     mainWindow.loadURL(
         url.format({
@@ -280,8 +285,7 @@ autoUpdater.on("update-available", info => {
 });
 
 app.on("ready", function() {
-  createWindow();
-  autoUpdater.checkForUpdatesAndNotify();
+  createWindow(); 
  });
 
 app.on('before-quit', (event) => { 

@@ -241,7 +241,48 @@ async function  createWindow() {
 
 }
 
-app.on('ready',createWindow)
+autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
+  console.log('updated-downloaded.....');
+  const dialogOpts = {
+      type: 'info',
+      buttons: ['Restart', 'Not Now. On next Restart'],
+      title: 'Update',
+      message: process.platform === 'win32' ? releaseNotes : releaseName,
+      detail: 'A New Version has been Downloaded. Restart Now to Complete the Update.'
+  }
+
+  dialog.showMessageBox(dialogOpts).then((returnValue) => {
+      if (returnValue.response === 0) autoUpdater.quitAndInstall()
+  })
+})
+
+autoUpdater.on('error', message => {
+  console.error('There was a problem updating the application')
+  console.error(message)
+})
+
+autoUpdater.on("checking-for-update", () => {
+  //your code
+   console.log('updated-downloaded.....');
+});
+
+/*No updates available*/
+autoUpdater.on("update-not-available", info => {
+  //your code
+  console.log('update-not-available.....');
+});
+
+/*New Update Available*/
+autoUpdater.on("update-available", info => {
+  //your code
+  console.log('update-available.....');
+  
+});
+
+app.on("ready", function() {
+  createWindow();
+  autoUpdater.checkForUpdatesAndNotify();
+ });
 
 app.on('before-quit', (event) => { 
   //console.log('before exit ....');
@@ -254,5 +295,3 @@ app.on('window-all-closed', function () {
 app.on('activate', function () {
     if (mainWindow === null) createWindow()
 })
-
-autoUpdater.checkForUpdatesAndNotify();

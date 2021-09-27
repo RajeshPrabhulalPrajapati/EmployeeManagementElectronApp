@@ -2,8 +2,7 @@ const { app, BrowserWindow, globalShortcut, Tray, Menu, MenuItem,  dialog,ipcMai
 const os = require('os');
 const sqlite3 = require('@journeyapps/sqlcipher').verbose();
 require('update-electron-app')({
-  repo: 'https://github.com/RajeshPrabhulalPrajapati/EmployeeManagementElectronApp',
-  updateInterval: '5 minute'
+  repo: 'https://github.com/RajeshPrabhulalPrajapati/EmployeeManagementElectronApp'
 })
 //console.log("before sql init");
 //const sqlite = require('sqlite-cipher');

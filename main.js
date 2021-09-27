@@ -1,5 +1,7 @@
+const { autoUpdater } = require('electron-updater');
 const { app, BrowserWindow, globalShortcut, Tray, Menu, MenuItem,  dialog,ipcMain } = require('electron');
 const os = require('os');
+
 const sqlite3 = require('@journeyapps/sqlcipher').verbose();
 require('update-electron-app')({
   repo: 'https://github.com/RajeshPrabhulalPrajapati/EmployeeManagementElectronApp'
@@ -252,3 +254,5 @@ app.on('window-all-closed', function () {
 app.on('activate', function () {
     if (mainWindow === null) createWindow()
 })
+
+autoUpdater.checkForUpdatesAndNotify();

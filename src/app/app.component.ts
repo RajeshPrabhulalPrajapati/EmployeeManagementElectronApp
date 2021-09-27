@@ -25,6 +25,7 @@ export class AppComponent {
     phoneNo: new FormControl('', [Validators.required])
   });
   tmpEmployee:Emp;
+  
   @ViewChild('myDiv') myInput: ElementRef;
 
   constructor(private appService: AppService) {
@@ -39,6 +40,22 @@ export class AppComponent {
       console.warn('App not running inside Electron!');
     }
 
+    const notification = document.getElementById('notification');
+    const message = document.getElementById('message');
+    const restartButton = document.getElementById('restart-button');
+
+    this.ipc?.on('update_available', () => {
+      this.ipc?.removeAllListeners('update_available');
+      message.innerText = 'A new update is available. Downloading now...';
+      notification.classList.remove('hidden');
+    });
+    this.ipc?.on('update_downloaded', () => {
+      this.ipc?.removeAllListeners('update_downloaded');
+      message.innerText = 'Update Downloaded. It will be installed on restart. Restart now?';
+      restartButton.classList.remove('hidden');
+      notification.classList.remove('hidden');
+    });
+
     this.ipc?.on('zoomIn', (event, data) => {
       this.webFrame?.setZoomFactor(this.webFrame?.getZoomFactor() + 0.5);
     });
@@ -46,6 +63,18 @@ export class AppComponent {
     this.ipc?.on('zoomOut', (event, data) => {
       this.webFrame?.setZoomFactor(this.webFrame?.getZoomFactor() - 0.5);
     });
+
+ 
+    
+  }
+
+  closeNotification() {
+    const notification = document.getElementById('notification');
+    notification.classList.add('hidden');
+  }
+
+  restartApp() {
+    this.ipc?.send('restart_app');
   }
 
   ngOnInit()

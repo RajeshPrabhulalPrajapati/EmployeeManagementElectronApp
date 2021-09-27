@@ -2,7 +2,10 @@
   "name": "sq-lite-crud-with-angular-electron",
   "version": "1.7.0",
   "main": "main.js",
-  "repository": "https://github.com/RajeshPrabhulalPrajapati/EmployeeManagementElectronApp",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/RajeshPrabhulalPrajapati/EmployeeManagementElectronApp.git"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,7 +13,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "electron": "electron .",
-    "electron-build": "ng build --prod  && npm run electron ."
+    "electron-build": "ng build --prod  && npm run electron .",
+    "builder": "electron-builder build  --win --publish never",
+    "deploy": "electron-builder build  --win --publish always"
   },
   "private": true,
   "dependencies": {

@@ -3,9 +3,9 @@ const { app, BrowserWindow, globalShortcut, Tray, Menu, MenuItem,  dialog,ipcMai
 const os = require('os');
 
 //const sqlite3 = require('@journeyapps/sqlcipher').verbose();
-require('update-electron-app')({
-  repo: 'https://github.com/RajeshPrabhulalPrajapati/EmployeeManagementElectronApp'
-})
+// require('update-electron-app')({
+//   repo: 'https://github.com/RajeshPrabhulalPrajapati/EmployeeManagementElectronApp'
+// })
 //console.log("before sql init");
 //const sqlite = require('sqlite-cipher');
 //console.log("after sql init");
@@ -75,10 +75,12 @@ async function  createWindow() {
 
     mainWindow.loadURL(
         url.format({
-            pathname: path.join('index.html'),
+            pathname: path.join(__dirname, `/src/index.html`),
             protocol: "file:",
             slashes: true
         })
+
+        
     );
     // Open the DevTools.
     //mainWindow.webContents.openDevTools();

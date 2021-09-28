@@ -79,24 +79,24 @@ export class AppComponent {
 
   ngOnInit()
   {
-    this.ipc?.on('employeeList', (event, data) => {
-      console.log("res =>", data);
-      this.empList =[];
-        data.map((d) => {
-        let emp = new Emp();
-        emp.empId = d.EmpId;
-        emp.empDepartment = d.EmpDepartment;
-        emp.empName = d.EmpName;
-        emp.empPhoneNo = d.EmpPhoneNo;
-        this.empList.push(emp);
-      });
-      console.log("empList =>", this.empList);
+    // this.ipc?.on('employeeList', (event, data) => {
+    //   console.log("res =>", data);
+    //   this.empList =[];
+    //     data.map((d) => {
+    //     let emp = new Emp();
+    //     emp.empId = d.EmpId;
+    //     emp.empDepartment = d.EmpDepartment;
+    //     emp.empName = d.EmpName;
+    //     emp.empPhoneNo = d.EmpPhoneNo;
+    //     this.empList.push(emp);
+    //   });
+    //   console.log("empList =>", this.empList);
       
-    });
+    // });
 
-    this.appService.getEmployees().subscribe((items) => {
+    // this.appService.getEmployees().subscribe((items) => {
 
-    });
+    // });
   }
 
   ngAfterViewInit()
@@ -113,9 +113,9 @@ export class AppComponent {
       emp.empDepartment = this.empForm.value.department;
       emp.empName = this.empForm.value.name;
       emp.empPhoneNo = this.empForm.value.phoneNo;
-      this.appService.updateEmployee(emp).subscribe((items) => {
-        this.resetForm();
-      });
+      // this.appService.updateEmployee(emp).subscribe((items) => {
+      //   this.resetForm();
+      // });
     }
     else {
       let emp = new Emp();
@@ -124,9 +124,9 @@ export class AppComponent {
       emp.empName = this.empForm.value.name;
       emp.empPhoneNo = this.empForm.value.phoneNo;
       this.empList.push(emp);
-      this.appService.addEmployee(emp).subscribe((items) => {
-        this.resetForm();
-      });
+      // this.appService.addEmployee(emp).subscribe((items) => {
+      //   this.resetForm();
+      // });
     }
 
 
@@ -157,9 +157,9 @@ export class AppComponent {
   }
   removeEmp(empId: string) {
     this.empList.splice(this.empList.indexOf(this.empList.find(e => e.empId === empId)), 1);
-    this.appService.deleteEmployee(empId).subscribe((res) => {
-      this.tmpEmployee = undefined;
-    });
+    // this.appService.deleteEmployee(empId).subscribe((res) => {
+    //   this.tmpEmployee = undefined;
+    // });
   }
 
 }

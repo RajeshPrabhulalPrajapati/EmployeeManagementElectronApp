@@ -46,4 +46,4 @@ Thumbs.db
 
 electron-builder.yml
 node_modules
-dist
+EmployeeManagement-win32-x64

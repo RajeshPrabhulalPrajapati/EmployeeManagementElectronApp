@@ -47,3 +47,4 @@ Thumbs.db
 electron-builder.yml
 node_modules
 dist
+release

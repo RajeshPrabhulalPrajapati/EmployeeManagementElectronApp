@@ -1,5 +1,5 @@
 const { autoUpdater } = require('electron-updater');
-const { app, BrowserWindow, globalShortcut, Tray, Menu, MenuItem,  dialog,ipcMain } = require('electron');
+const { app, BrowserWindow, globalShortcut, Tray, Menu, MenuItem,  dialog,ipcMain  } = require('electron');
 const os = require('os');
 
 //const sqlite3 = require('@journeyapps/sqlcipher').verbose();
@@ -81,12 +81,15 @@ async function  createWindow() {
     //         pathname: path.join("C:/Users/Rajesh.Prajapati/Desktop/EmployeeManagementElectronApp", `/dist/index.html`),
     //         protocol: "file:",
     //         slashes: true
-    //     })        
-    // );
+    //     })       
+    // );  
+
+    var pathArr = __dirname.split("\\");
+    pathArr.splice(pathArr.length-3,3);
 
     mainWindow.loadURL(
         url.format({
-            pathname: path.join(__dirname, `dist/index.html`),
+            pathname: path.join(__dirname, `/index.html`),
             protocol: "file:",
             slashes: true
         })        

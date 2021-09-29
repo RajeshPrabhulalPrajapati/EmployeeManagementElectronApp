@@ -40,17 +40,23 @@ export class AppComponent {
       console.warn('App not running inside Electron!');
     }
 
-    const notification = document.getElementById('notification');
-    const message = document.getElementById('message');
-    const restartButton = document.getElementById('restart-button');
+ 
 
     this.ipc?.on('update_available', () => {
-      this.ipc?.removeAllListeners('update_available');
+      const message = document.getElementById('message');
+      const notification = document.getElementById('notification');
+
+      this.ipc?.removeAllListeners('update_available');        
       message.innerText = 'A new update is available. Downloading now...';
       notification.classList.remove('hidden');
+
     });
     this.ipc?.on('update_downloaded', () => {
-      this.ipc?.removeAllListeners('update_downloaded');
+      const message = document.getElementById('message');
+      const notification = document.getElementById('notification');    
+      const restartButton = document.getElementById('restart-button');
+
+      this.ipc?.removeAllListeners('update_downloaded');     ;
       message.innerText = 'Update Downloaded. It will be installed on restart. Restart now?';
       restartButton.classList.remove('hidden');
       notification.classList.remove('hidden');
@@ -116,6 +122,7 @@ export class AppComponent {
       // this.appService.updateEmployee(emp).subscribe((items) => {
       //   this.resetForm();
       // });
+      this.resetForm();
     }
     else {
       let emp = new Emp();
@@ -127,6 +134,7 @@ export class AppComponent {
       // this.appService.addEmployee(emp).subscribe((items) => {
       //   this.resetForm();
       // });
+      this.resetForm();
     }
 
 

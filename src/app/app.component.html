@@ -96,10 +96,10 @@
 
 <div id="notification" class="hidden">
   <p id="message"></p>
-  <button id="close-button" onClick="closeNotification()">
+  <button id="close-button" (click)="closeNotification()">
     Close
   </button>
-  <button id="restart-button" onClick="restartApp()" class="hidden">
+  <button id="restart-button" (click)="restartApp()" class="hidden">
     Restart
   </button>
 </div>

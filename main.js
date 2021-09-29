@@ -34,7 +34,7 @@ const url = require("url");
 const path = require("path");
 const notifier = require('node-notifier');
 let mainWindow;
-let iconPath = path.join(__dirname, `/dist/assets/electron-app-icon.png`);
+let iconPath = path.join(__dirname, `/src/assets/electron-app-icon.png`);
 let tray;
 console.log(iconPath);
 let db;
@@ -72,18 +72,29 @@ async function  createWindow() {
         }
     })
    
+    // mainWindow.loadFile(
+    //     path.join(__dirname, `/src/index.html`)      
+    // );
+
+    // mainWindow.loadURL(
+    //     url.format({
+    //         pathname: path.join("C:/Users/Rajesh.Prajapati/Desktop/EmployeeManagementElectronApp", `/dist/index.html`),
+    //         protocol: "file:",
+    //         slashes: true
+    //     })        
+    // );
 
     mainWindow.loadURL(
         url.format({
-            pathname: path.join(__dirname, `/src/index.html`),
+            pathname: path.join(__dirname, `dist/index.html`),
             protocol: "file:",
             slashes: true
-        })
-
-        
+        })        
     );
+
+
     // Open the DevTools.
-    //mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 
     mainWindow.on('closed', function () {
         mainWindow = null
@@ -187,7 +198,7 @@ async function  createWindow() {
                 notifier.notify({
                     title: 'My awesome title',
                     message: `Hello ${currentPlatform} user ! You are using ${currentPlatform} system.`,
-                    icon: path.join(__dirname, `/dist/assets/smily.png`),
+                    icon: path.join(__dirname, `/src/assets/smily.png`),
                     sound: true,             
 
                 }, function (err, response) {

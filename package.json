@@ -1,6 +1,6 @@
 {
   "name": "sq-lite-crud-with-angular-electron",
-  "version": "2.4.8",
+  "version": "2.5.1",
   "main": "main.js",
   "repository": {
     "type" : "git",

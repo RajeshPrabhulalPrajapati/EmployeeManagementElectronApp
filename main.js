@@ -97,7 +97,7 @@ async function  createWindow() {
 
 
     // Open the DevTools.
-    mainWindow.webContents.openDevTools();
+    //mainWindow.webContents.openDevTools();
 
     mainWindow.on('closed', function () {
         mainWindow = null
@@ -283,12 +283,12 @@ async function  createWindow() {
 
 autoUpdater.on('error', message => {
   console.error('There was a problem updating the application')
-  console.error(message)
+  console.error(message);  
 })
 
 autoUpdater.on("checking-for-update", () => {
   //your code
-   console.log('updated-downloaded.....');
+   console.log('updated-downloaded.....');  
 });
 
 /*No updates available*/
@@ -320,8 +320,10 @@ app.on('activate', function () {
     if (mainWindow === null) createWindow()
 })
 
-autoUpdater.on('update-available', () => {
+autoUpdater.on('update-available', () => {   
   mainWindow.webContents.send('update_available');
-});autoUpdater.on('update-downloaded', () => {
+});
+
+autoUpdater.on('update-downloaded', () => {    
   mainWindow.webContents.send('update_downloaded');
 });

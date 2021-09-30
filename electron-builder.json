@@ -1,9 +1,9 @@
 {
   "appId": "com.example.ElectronAutoUpdate",
-  "productName": "Employee management",
+  "productName": "Employee management", 
   "publish":{
     "provider":"github",
-    "token":"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"
+    "token":"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"
   },
   "asar": false,
   "directories": {

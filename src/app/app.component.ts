@@ -39,8 +39,10 @@ export class AppComponent {
     } else {
       console.warn('App not running inside Electron!');
     }
-
- 
+    
+    this.ipc?.on('test', (msg) => {
+     alert(msg);
+    });
 
     this.ipc?.on('update_available', () => {
       const message = document.getElementById('message');

@@ -3,7 +3,7 @@
   "productName": "Employee management", 
   "publish":{
     "provider":"github",
-    "token":"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"
+    "token":"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"
   },
   "asar": false,
   "directories": {

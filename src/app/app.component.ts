@@ -97,7 +97,7 @@ export class AppComponent {
         emp.empId = d.EmpId;
         emp.empDepartment = d.EmpDepartment;
         emp.empName = d.EmpName;
-        emp.empPhoneNo = d.EmpPhoneNo;
+        emp.empPhoneNo = Math.floor(d.EmpPhoneNo).toString();
         this.empList.push(emp);
       });
       console.log("empList =>", this.empList);

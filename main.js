@@ -2,7 +2,7 @@ const { autoUpdater } = require('electron-updater');
 const { app, BrowserWindow, globalShortcut, Tray, Menu, MenuItem,  dialog,ipcMain  } = require('electron');
 const os = require('os');
 
-//const sqlite3 = require('@journeyapps/sqlcipher').verbose();
+const sqlite3 = require('@journeyapps/sqlcipher').verbose();
 // require('update-electron-app')({
 //   repo: 'https://github.com/RajeshPrabhulalPrajapati/EmployeeManagementElectronApp'
 // })
@@ -50,11 +50,11 @@ async function  createWindow() {
         //   database: 'C:/Users/Rajesh.Prajapati/Desktop/Rajesh Prajapati/SqLite/electron.sqlite',
         //   entities: [ Emp ],
         // });   
-    //db = new sqlite3.Database(path.join(__dirname, `/dist/assets/myDB.db`));
-    //db.run("PRAGMA cipher_compatibility = 4");  
-    //db.run("PRAGMA key = 'Prabhulal'"); 
+    db = new sqlite3.Database(path.join(__dirname, `./assets/myDB.db`));
+    db.run("PRAGMA cipher_compatibility = 4");  
+    db.run("PRAGMA key = 'Prabhulal'"); 
     //sqlite.connect(path.join(__dirname, `/dist/assets/myDB.db`),'myPass','aes-256-ctr');
-    //db.run("CREATE TABLE IF NOT EXISTS Emp (EmpId uniqueidentifier primary key,EmpName varchar(50),EmpDepartment varchar(50),EmpPhoneNo varchar(50));")
+    db.run("CREATE TABLE IF NOT EXISTS Emp (EmpId uniqueidentifier primary key,EmpName varchar(50),EmpDepartment varchar(50),EmpPhoneNo varchar(50));")
     
     //sqlite.run("CREATE TABLE IF NOT EXISTS Emp (EmpId uniqueidentifier primary key,EmpName varchar(50),EmpDepartment varchar(50),EmpPhoneNo varchar(50));")
    // const empRepo = connection.getRepository(Emp);
@@ -120,61 +120,61 @@ async function  createWindow() {
         autoUpdater.quitAndInstall();
       });
 
-    // ipcMain.on('get-employees', async (event, _item) => {        
-    //     try {          
-    //       console.log("in Get employees..");
-    //         db.all("select * from Emp", (err, rows) => {
-    //             if (err) {
-    //             return console.log(err.message);                
-    //             } 
-    //             console.log("Employees",rows)
-    //             mainWindow.webContents.send("employeeList",rows); 
-    //           });
-    //     } catch (err) {
-    //       throw err;
-    //     }
-    //   });
+    ipcMain.on('get-employees', async (event, _item) => {        
+        try {          
+          console.log("in Get employees..");
+            db.all("select * from Emp", (err, rows) => {
+                if (err) {
+                return console.log(err.message);                
+                } 
+                console.log("Employees",rows)
+                mainWindow.webContents.send("employeeList",rows); 
+              });
+        } catch (err) {
+          throw err;
+        }
+      });
 
-    // ipcMain.on('add-employee', async (event, _item) => {        
-    //     try {          
-    //       db.run(`INSERT INTO Emp (EmpId,EmpName,EmpDepartment,EmpPhoneNo) VALUES(?,?,?,?)`,[_item.empId,_item.empName,_item.empDepartment,_item.empPhoneNo], function(err) {
-    //         if (err) {
-    //           return console.log(err.message);
-    //         }            
-    //         console.log(`A Emp has been inserted with empid ${_item.empId}`);
-    //       });           
-    //     } catch (err){
-    //       throw err;
-    //     }
-    //   });
+    ipcMain.on('add-employee', async (event, _item) => {        
+        try {          
+          db.run(`INSERT INTO Emp (EmpId,EmpName,EmpDepartment,EmpPhoneNo) VALUES(?,?,?,?)`,[_item.empId,_item.empName,_item.empDepartment,_item.empPhoneNo], function(err) {
+            if (err) {
+              return console.log(err.message);
+            }            
+            console.log(`A Emp has been inserted with empid ${_item.empId}`);
+          });           
+        } catch (err){
+          throw err;
+        }
+      });
 
-      // ipcMain.on('update-employee', async (event, _item) => {        
-      //   try {          
-      //     db.run(`update Emp SET EmpName=?, EmpDepartment=?, EmpPhoneNo=? where EmpId =?`,[_item.empName,_item.empDepartment,_item.empPhoneNo,_item.empId], function(err) {
-      //       if (err) {
-      //         return console.log(err.message);
-      //       }     
-      //       console.log(`A Emp has been updated with empid ${_item.empId}`);
-      //     });              
+      ipcMain.on('update-employee', async (event, _item) => {        
+        try {          
+          db.run(`update Emp SET EmpName=?, EmpDepartment=?, EmpPhoneNo=? where EmpId =?`,[_item.empName,_item.empDepartment,_item.empPhoneNo,_item.empId], function(err) {
+            if (err) {
+              return console.log(err.message);
+            }     
+            console.log(`A Emp has been updated with empid ${_item.empId}`);
+          });              
 
-      //   } catch (err) {
-      //     throw err;
-      //   }
-      // });
+        } catch (err) {
+          throw err;
+        }
+      });
 
-      // ipcMain.on('delete-employee', async (event, empId) => {        
-      //   try {          
-      //     db.run(`delete from Emp where EmpId =?`,[empId], function(err) {
-      //       if (err) {
-      //         return console.log(err.message);
-      //       }                     
-      //       console.log(`A Emp has been deleted with empid ${empId}`);
-      //     });              
+      ipcMain.on('delete-employee', async (event, empId) => {        
+        try {          
+          db.run(`delete from Emp where EmpId =?`,[empId], function(err) {
+            if (err) {
+              return console.log(err.message);
+            }                     
+            console.log(`A Emp has been deleted with empid ${empId}`);
+          });              
 
-      //   } catch (err) {
-      //     throw err;
-      //   }
-      // });
+        } catch (err) {
+          throw err;
+        }
+      });
 
       
     defineShortCuts();
@@ -239,6 +239,7 @@ async function  createWindow() {
         });
 
         mainWindow.once('ready-to-show', () => {
+            mainWindow.webContents.send('test','0');
           autoUpdater.checkForUpdatesAndNotify();
         });
     }
@@ -288,12 +289,14 @@ autoUpdater.on('error', message => {
 
 autoUpdater.on("checking-for-update", () => {
   //your code
-   console.log('updated-downloaded.....');  
+  mainWindow.webContents.send('test','1');
+   console.log('checking-for-update.....');  
 });
 
 /*No updates available*/
 autoUpdater.on("update-not-available", info => {
   //your code
+  mainWindow.webContents.send('test','2');
   console.log('update-not-available.....');
 });
 
